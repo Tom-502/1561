@@ -1,0 +1,209 @@
+import java.util.*;
+abstract class Ingredient
+{
+    protected String name;
+	protected Calendar date_time;
+    protected int quality_day;
+	public Ingredient(int day,Calendar time,String Name)
+	{
+		this.quality_day = day;
+		this. date_time = time;
+		this.name=Name;
+	}
+	public abstract String toString ();
+	public abstract String get_name ();
+	public abstract int get_day ();
+	public abstract Calendar get_time ();
+}
+class Bubble extends Ingredient
+{
+	public Bubble (Calendar time,String Name)
+	{
+		super(7,time,Name);
+	}
+	public Calendar get_time ()
+	{
+		return this.date_time;
+	}
+
+    public String toString ()
+	{
+		return "珍珠"+"  " + "生产日期:"+get_time()+ "   "+"保质期:"+get_day();
+	}
+	public String get_name ()
+	{
+		return this.name;
+	}
+	public int get_day ()
+	{
+		return 7;
+	}
+}
+class Cocount extends Ingredient
+{
+    public Cocount (Calendar time,String Name)
+	{
+		super(5,time,Name);
+	}
+	public Calendar get_time ()
+	{
+		return this.date_time;
+	}
+
+    public String toString ()
+	{
+		return "椰果"+"  " + "生产日期:"+get_time()+ "   "+"保质期:"+get_day();
+	}
+	public String get_name ()
+	{
+		return this.name;
+	}
+	public int get_day ()
+	{
+		return 5;
+	}
+}
+class MilkTea 
+{
+	private String name;
+    private Ingredient ingredient;
+	private Calendar date_time;
+	public String get_mname()
+	{
+		return this.name;
+	}
+	public MilkTea (String Name,Ingredient ingre,Calendar time)
+	{
+        this.name = Name;
+		this.ingredient = ingre;
+		this.date_time=time;
+	}
+	public String toString ()
+	{
+		return "奶茶名:"+get_mname()+"   配料:"+ingredient.name;
+	}
+}
+class TeaShop implements Shop
+{
+	private ArrayList<Ingredient> bu;
+	private ArrayList<Ingredient> co;
+	public TeaShop ()
+	{
+         bu= new ArrayList <Ingredient>();
+		 co=new ArrayList <Ingredient>();
+	}
+	public void add_milktea (Ingredient ingredient)
+	{
+		if (ingredient instanceof Bubble)
+		{
+			bu.add(ingredient);
+		}
+		if (ingredient instanceof Cocount)
+		{
+			co.add(ingredient);
+		}
+	}
+    public void sale (String teaname,String ingrename) throws  SoldOutException,IngredientException
+	{
+		Ingredient in;
+		 Calendar time=Calendar.getInstance();
+		if (ingrename.equals("bubble"))
+		{
+		   in=bu.get(0);
+           long t=time.getTimeInMillis()-in.get_time ().getTimeInMillis();
+		   if (t>=604800000)
+		   {
+			   bu.remove (0);
+		   }
+		   if (bu.isEmpty())
+		   {
+                throw new SoldOutException("椰果奶茶已售完");
+		   }
+		   else
+			{
+                 MilkTea milktea = new MilkTea (teaname,in,time);
+                 System.out.println("成功售出一杯名为"+teaname+"的椰果奶茶");
+		   }
+		}
+		else
+		{
+			throw new IngredientException("抱歉，没有这种奶茶.");
+		}
+		if (ingrename.equals("cocount"))
+		{
+			 in=co.get(0);
+             long t=time.getTimeInMillis()-in.get_time ().getTimeInMillis();
+			 if (t>=432000000)
+		    {
+			    co.remove(0);
+		    }
+			if (co.isEmpty())
+			{
+                  throw new SoldOutException("珍珠奶茶已售完");
+			}
+			else
+			{
+				MilkTea milktea = new MilkTea (teaname,in,time);
+                 System.out.println("成功售出一杯名为"+teaname+"的珍珠奶茶");
+			}
+		}
+		else
+		{
+			throw new IngredientException("抱歉，没有这种奶茶.");
+		}
+	}
+}
+interface Shop
+{
+    public void add_milktea (Ingredient ingredient);
+	public void sale (String teaname,String ingrename) throws SoldOutException,IngredientException;
+}
+class IngredientException extends Exception
+{
+	private String message;
+	public IngredientException (String Message)
+	{
+		super(Message);
+		this.message=Message;
+	}
+	public void ExceptionOutput (String Message)
+	{
+        System.out.println(Message);
+	}
+}
+class SoldOutException extends Exception
+{
+	private String message;
+	public SoldOutException (String Message)
+	{
+		super(Message);
+		this.message=Message;
+	}
+	public void ExceptionOutput (String Message)
+	{
+		System.out.println(Message);
+	}
+}
+public class test 
+{
+	public static void main(String[] args) 
+{
+	TeaShop teashop;
+    Scanner in =new Scanner(System.in);
+	System.out.println("欢迎来到西二奶茶店\n");
+    System.out.println("请问您要什么奶茶呢？我们有椰果奶茶和珍珠奶茶哦.\n");
+    String na=in.next();
+}
+
+}
+
+
+
+/*Calendar time=Calendar.getInstance();
+time.set(year,month+1,day,hour,minute,second)
+
+
+time.getTime();
+
+time.get(Calendar.DAY_OF_MONTH)
+time.get(Calendar.HOUR_OF_DAY)*/

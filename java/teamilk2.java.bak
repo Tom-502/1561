@@ -1,0 +1,34 @@
+import java.util.*;
+pubilc abstract class Ingredient
+{
+    private string name;
+	private Calendar date_time;
+    private int quality_day;
+	public abstract void work ();
+}
+public class Bubble extends Ingredient
+{
+    public Bubble(int day,Calendar time,string Name)
+	{
+		this.quality_day = day;
+		this. date_time = time;
+		this.name=Name;
+	}
+}
+public class Cocount extends Ingredient
+{
+
+}
+
+
+
+
+
+/*Calendar time=Calendar.getInstance();
+time.set(year,month+1,day,hour,minute,second)
+
+
+time.getTime();
+
+time.get(Calendar.DAY_OF_MONTH)
+time.get(Calendar.HOUR_OF_DAY)*/
