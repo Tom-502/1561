@@ -214,15 +214,15 @@ public class connection
             stat.executeUpdate("create table prediction1(adcode int,province varchar(50),city varchar(40),reporttime varchar(40))");
             stat .executeUpdate("create table prediction2(adcode int,date varchar(40),week int,dayweather varchar(40),nightweather varchar(40),daytemp int,nighttemp int,daywind varchar(40),nightwind varchar(40),daypower varchar(40),nightpower varchar(40))");
         }
-    public static void main(String args[]) throws Exception
+    public static void main(String args[]) throws Exception 
     {
         Weather weather = new Weather() ;
         connection con = new connection() ;
-        //con.add_table1() ;
-        //con .addtoday(weather );
-        //con.add_table2() ;
-        con.addprediction1(weather) ;
-        con.addprediction2(weather);
+        con .add_table1() ; //建表 实时天气（不可重复创建）
+        con .addtoday(weather );//实时天气导入数据库
+        con.add_table2() ; //建立表 预报天气(2个表)不可重复创建）
+        con.addprediction1(weather) ; //预报天气导入数据库
+        con.addprediction2(weather); //预报天气导入数据库
     }
 }
 
