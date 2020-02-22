@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>作业查看</title>
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+    <script th:src="@{/js/jquery-migrate-1.4.1.js}"></script>
+    <script th:src="@{/js/list.js}"></script>
+    <!--<script th:src="@{/jquery-migrate-1.4.1.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+    <script th:src="@{/js/list.js}"></script>-->
+</head>
+<body>
+<div id="all">
+    <div class="menu">
+        <span><a class="btn btn-sm btn-primary" th:href="@{/}">返回首页</a></span>
+        <span><a class="btn btn-sm btn-primary" th:href="@{/ExamAdd}" >任务发布</a></span>
+        <span><a class="btn btn-sm btn-primary" th:href="@{/ExamList}">任务查看</a></span>
+        <span><a class="btn btn-sm btn-primary" th:href="@{/logout}">退出登录</a></span>
+    </div>
+    <div class="input-box">
+        <table class="reItemM">
+            <thead>
+            <tr>
+                <th>作业号</th>
+                <th>考核名称</th>
+                <th>考核内容</th>
+                <th>截止时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exam:${exams}" id="tableInfo">
+                <td th:text="${exam.getId()}"></td>
+                <td th:text="${exam.getExamName()}"></td>
+     <!--新增--><td th:text="${exam.getExamContent()}"></td>
+                <td th:text="${#dates.format(exam.getDeadline(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/exam/}+${exam.getId()}">详情</a>
+                    <a class="btn btn-sm btn-danger" th:href="@{/examDelete/}+${exam.getId()}">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="icon"></div>
+    <div id="pagination">
+        <a onclick="firstPage()">首页</a>
+        <a onclick="prevPage()">上一页</a>
+        <span id="numPage"></span>
+        <a onclick="pnextPage()">下一页</a>
+        <a onclick="lastPage()">尾页</a>
+
+    </div>
+</div>
+</body>
+</html>

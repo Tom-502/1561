@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生作业详情页</title>
+    <script th:src="@{/js/jquery-migrate-1.4.1.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/assess.css}">
+    <script th:src="@{/js/add.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/css/assess.css}">
+    <script th:src="@{/js/jquery-migrate-1.4.1.js}"></script>
+    <script th:src="@{/js/assess.js}"></script>-->
+</head>
+<body>
+<div id="all">
+    <div class="menu">
+        <span><a class="btn btn-sm btn-primary" th:href="@{/}">返回首页</a></span>
+        <span><a class="btn btn-sm btn-primary" th:href="@{/ExamAdd}" >任务发布</a></span>
+        <span><a class="btn btn-sm btn-primary" th:href="@{/ExamList}">任务查看</a></span>
+        <span><a class="btn btn-sm btn-primary" th:href="@{/logout}">退出登录</a></span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>作业号</th>
+                <th>考核名称</th>
+                <th>考核内容</th>
+                <th>截止时间</th>
+                <th>提交人数</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:text="${exam}">
+                <td th:text="${exam.getId()}"></td>
+                <td class="change"  id="name" th:text="${exam.getExamName()}"></td>
+                <td class="change" id="content" th:text="${exam.getExamContent()}"></td>
+                <td class="change" id="ddl" th:text="${#dates.format(exam.getDeadline(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td class="change" id="number" th:text="${exam.Getnumber(exam.getId())}"></td>
+                <td>
+                    <a class="btn btn-sm btn-success" th:href="@{/examEdit/}+${exam.getId()}">xx</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="
+    input-box">
+        <table class="table">
+            <thead>
+                <tr class="reItemM">
+                    <td>学号</td>
+                    <td>姓名</td>
+                    <td>提交时间</td>
+                    <td>审核状态:0审核中 1通过 2未通过</td>
+                    <td>操作</td>
+                    <td>选中</td>
+                </tr>
+            </thead>
+            <tbody id="tableInfo">
+            <tr th:each="homework:${homeworks}">
+                <td th:text="${homework.getStudy_number()}"></td>
+                <td th:text="${homework.getName()}"></td>
+                <td th:text="${#dates.format(homework.getTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${homework.getTarget()}"></td>
+                <td></td>
+
+
+
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/download/}+${exam.getId()}+'/'+${homework.getId()}">下载</a>
+                    <a class="btn btn-sm btn-danger" th:href="@{/homeworkDelete/}+${exam.getId()}+'/'+${homework.getId()}">删除</a>
+                   <!-- 状态应该显示在审核状态栏里吧
+                   <a class="btn btn-sm btn-danger" th:href="@{/homeworkPass/}+${assess.getId()}+'/'+${homework.getId()}">通过</a>
+                    <a class="btn btn-sm btn-danger" th:href="@{/homeworkUnderView/}+${assess.getId()}+'/'+${homework.getId()}">审核中</a>
+                    <a class="btn btn-sm btn-danger" th:href="@{/homeworkCull/}+${assess.getId()}+'/'+${homework.getId()}">未通过</a>-->
+                </td>
+                <td><input type="checkbox" name = "put" class = "put" value = "right"></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <!--
+        -->
+    </div>
+    <div class="table"></div>
+    <div class="icon"></div>
+    <div id="pagination">
+        <a onclick="firstPage()">首页</a>
+        <a onclick="prevPage()">上一页</a>
+        <span id="numPage"></span>
+        <a onclick="pnextPage()">下一页</a>
+        <a onclick="lastPage()">尾页</a>
+
+    </div>
+</div>
+</body>
+</html>

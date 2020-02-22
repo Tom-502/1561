@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>你好!管理员</title>
+    <link rel="stylesheet" th:href="@{/css/BackEnd.css}">
+    <script th:src="@{/static/js/jquery-migrate-1.4.1.js}"></script>
+    <script th:src="@{static/js/BackEnd.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/css/BackEnd.css}">
+    <script th:src="@{/js/jquery-migrate-1.4.1.js}"></script>
+    <script th:src="@{/js/BackEnd.js}"></script>-->
+</head>
+<body>
+    <div class="manager">
+        <span class="manager-icon"></span>
+        <span><a>你好！管理员</a></span>
+    </div>
+    <div class="second">
+        <div class="container">
+            <span class="publish-icon"></span>
+            <span><a class="btn btn-sm btn-primary" th:href="@{/ExamAdd}">任务发布</a></span>
+        </div>
+        <div class="container">
+            <span class="check-icon"></span>
+            <span><a class="btn btn-sm btn-primary" th:href="@{/ExamList}">任务查看</a></span>
+        </div>
+    </div>
+</body>
+</html>
