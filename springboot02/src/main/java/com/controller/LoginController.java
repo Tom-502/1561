@@ -26,27 +26,16 @@ public class LoginController {
                         @RequestParam("password") String password,
                         Model model, HttpSession session)
     {
-        /*Admini admini = new Admini(username,password);
+        Admini admini = new Admini(username,password);
         AdminiDao adminiDao = new AdminiDao();
-        adminiDao.AllAdminisOut();
-        int tag=0;
-        for (int i =0 ;i<adminiDao.GetAllAdminis().size() ;i++)
+        if (!adminiDao.Cannotlogin(admini))
         {
-            if (admini.equals(adminiDao.GetAllAdminis().get(i)))
-            {
-                session.setAttribute("loginUser",username);     //登录成功
-                tag=1;
-                return "aaa.html";      //页面跳转
-            }
-        }*/
-        if (!StringUtils.isEmpty(username) && "123456".equals(password)){
-            //登录成功！
-            session.setAttribute("loginUser",username );
-            return "redirect:/main.html";
-        }else {
-            //登录失败！存放错误信息
-            model.addAttribute("msg","用户名密码错误");
+            model.addAttribute("msg","用户名密码错误");            //登录失败！存放错误信息
             return "index";
+        }
+        else {
+            session.setAttribute("loginUser",username );//登录成功！
+            return "redirect:/main.html";
         }
     }
 }

@@ -15,6 +15,7 @@ public class LogonController {
     @RequestMapping(value = "/admini/logon")
     public String logon(@RequestParam("new_username") String new_username,
                         @RequestParam("new_password") String new_password,
+                        Model model,
                         HttpSession session)
     {
         Admini admini = new Admini(new_username,new_password);
@@ -22,6 +23,7 @@ public class LogonController {
         adminiDao.createAdminiTable();
         adminiDao.AddOneAdmini(admini);
         session.setAttribute("loginUser",new_username );
-        return "redirect:/main.html";
+        model.addAttribute("msg2","您已成功注册");
+        return "index";
     }
 }

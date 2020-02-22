@@ -31,19 +31,19 @@ public class HomeworkDao {  //和数据库搞在一起
     public void CreatHomeworkTable(int id)//新建作业表
     {
         String TableName = "Exam"+id+"_homework";
-        if (!Judgement(TableName))       //判断表是否存在
+        if (!Judgement(TableName))
         {
-            connectionOpen();       //连接数据库
+            connectionOpen();
             PreparedStatement preparedStatement = null;
             try {
                 String sql = "create table " + TableName + "(ExamId int ,Id int,StudyNumber long,Name varchar(50),Target int,FilePath varchar(200),FileName varchar(200),Time timestamp)";
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.executeUpdate();
-            } catch (SQLException e)        //异常处理
+            } catch (SQLException e)
             {
                 e.printStackTrace();
             } finally {
-                Connection1.close(preparedStatement);    //关闭连接
+                Connection1.close(preparedStatement);
                 connectionClose();
             }
         }
@@ -86,9 +86,9 @@ public class HomeworkDao {  //和数据库搞在一起
     {
         int t=0;
         String TableName = "Exam"+exam.getId()+"_homework";
-        if (Judgement(TableName))       //判断表是否存在
+        if (Judgement(TableName))
         {
-            connectionOpen();     //连接数据库
+            connectionOpen();
             PreparedStatement preparedStatement = null;
             try {
                 if (!exam.Overtime(homework))
@@ -112,7 +112,7 @@ public class HomeworkDao {  //和数据库搞在一起
             }
             finally
             {
-                Connection1.close(preparedStatement);    //关闭连接
+                Connection1.close(preparedStatement);
                 connectionClose();
             }
         }
@@ -127,11 +127,11 @@ public class HomeworkDao {  //和数据库搞在一起
     public void AddAllHomeworkToExam (Exam exam) //把所有作业数据导入相应的考核数据库表
     {
         String TableName = "Exam"+exam.getId()+"_homework";
-        if(Judgement(TableName))       //判断表是否存在
+        if(Judgement(TableName))
         {
-            for (int i = 0; i < homeworks.size(); i++)        //遍历作业列表
+            for (int i = 0; i < homeworks.size(); i++)
             {
-                InsertOneHomework(homeworks.get(i),exam);             //插入作业数据
+                InsertOneHomework(homeworks.get(i),exam);
             }
         }
     }
@@ -139,18 +139,17 @@ public class HomeworkDao {  //和数据库搞在一起
     public void DeleteOneHomework(int exam_id , int homework_id)//删除特定的作业数据
     {
         String TableName = "Exam"+exam_id+"_homework";
-        if(Judgement(TableName))       //判断表是否存在
+        if(Judgement(TableName))
         {
-            connectionOpen();       //连接数据库
+            connectionOpen();
             PreparedStatement preparedStatement = null;
             try
             {
-                //sql语句
                 String sql = "delete from " + TableName + " where Id=?";
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1,homework_id);
 
-                preparedStatement.executeUpdate();    //执行语句
+                preparedStatement.executeUpdate();
             }
             catch (SQLException e)
             {
@@ -158,7 +157,7 @@ public class HomeworkDao {  //和数据库搞在一起
             }
             finally
             {
-                connectionClose();        //关闭连接
+                connectionClose();
                 Connection1.close(preparedStatement);
             }
         }
@@ -169,18 +168,17 @@ public class HomeworkDao {  //和数据库搞在一起
     {
         homeworks1.clear();        //清空Arraylist homework1中的内容
         String TableName = "Exam"+Exam_id+"_homework";
-        if(Judgement(TableName))       //判断表是否存在
+        if(Judgement(TableName))
         {
-            connectionOpen();       //连接数据库
+            connectionOpen();
             PreparedStatement preparedStatement = null;
             ResultSet resultSet = null;
             try
             {
-                //sql语句
                 String sql = "select * from " + TableName;
                 preparedStatement = connection.prepareStatement(sql);
-                resultSet = preparedStatement.executeQuery();   //执行语句，并将结果返回ResultSet中
-                while (resultSet.next())   //遍历
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next())
                 {
                     int Flag = 0;
                     int examid = resultSet.getInt("ExamId");
@@ -190,9 +188,9 @@ public class HomeworkDao {  //和数据库搞在一起
                     int target = resultSet.getInt("Target");
                     String filepath = resultSet.getString("FilePath");
                     String filename=resultSet.getString("FileName");
-                    java.util.Date time = new Date(resultSet.getTimestamp("Time").getTime());//将time转化为Date
+                    java.util.Date time = new Date(resultSet.getTimestamp("Time").getTime());
 
-                    homeworks1.add(new Homework(id,name,time,target,study_number,filename,examid,filepath));       //将每条作业信息都存入Arraylist中
+                    homeworks1.add(new Homework(id,name,time,target,study_number,filename,examid,filepath));       //将每条作业信息都存入homework1中
                 }
                 Connection1.close(resultSet);
             }
@@ -202,7 +200,7 @@ public class HomeworkDao {  //和数据库搞在一起
             }
             finally
             {
-                connectionClose();    //关闭连接
+                connectionClose();
                 Connection1.close(preparedStatement);
             }
         }

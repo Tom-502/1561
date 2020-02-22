@@ -32,8 +32,8 @@ public class StudentController {
                          Model model,
                          HttpServletRequest request) throws Exception
     {
-        String fileName = FileDao.fileNameCreate(file, study_number, exam_id);    //获取文件名
-        String filePath = FileDao.filePathCreate(request, "/upload");   //获取文件目录
+        String fileName = FileDao.fileNameCreate(file, study_number, exam_id);
+        String filePath = FileDao.filePathCreate(request, "/upload");
         Homework homework = new Homework(name,0 ,study_number, filePath,exam_id, fileName);//默认为审核中
         HomeworkDao homeworkDao = new HomeworkDao();
         System.out.println(filePath);
@@ -48,27 +48,29 @@ public class StudentController {
         }
         System.out.println(a);
         FileDao.uploadFile(file.getBytes(), filePath, fileName);
-        return "index";      //重定向至首页
+        return "index";
     }
-    //下载文件
+
     @RequestMapping("/download/{examid}/{homeworkid}")
-    public String download(HttpServletRequest request, HttpServletResponse response,
-                           @PathVariable("examid") int examid,@PathVariable("homeworkid") int homeworkid) throws Exception
+    public String download(HttpServletRequest request,
+                           HttpServletResponse response,
+                           @PathVariable("examid") int examid,
+                           @PathVariable("homeworkid") int homeworkid) throws Exception
     {
-        Homework homework=HomeworkService.getHomework(examid,homeworkid);   //获取要下载的作业信息
-        String filePath = homework.getFilePath();   //获取文件路径
-        String fileName = homework.getFileName();    //获取文件名
+        Homework homework=HomeworkService.getHomework(examid,homeworkid);
+        String filePath = homework.getFilePath();
+        String fileName = homework.getFileName();
         System.out.println(filePath);
         System.out.println(fileName);
-        FileDao.downloadFile(response,fileName,filePath);    //下载文件
-        return "redirect:/exam/{examid}";      //返回下载成功页面
+        FileDao.downloadFile(response,fileName,filePath);
+        return "redirect:/exam/{examid}";
     }
-    //删除作业信息
+
     @RequestMapping("/homeworkDelete/{examid}/{homeworkid}")
     public String delete(@PathVariable("examid") int examid,@PathVariable("homeworkid") int homeworkid)
     {
         HomeworkService.deleteHomework(examid,homeworkid);
-        return "redirect:/exam/{examid}";    //重定向至考核详情页
+        return "redirect:/exam/{examid}";
     }
 
 

@@ -17,15 +17,7 @@ public class ExamService {//实现一些功能
         return examDao.AllExamsOut();
     }
 
-    //从数据库中获取指定ID的考核信息
-    public static Exam getExamsById(int exam_id)
-    {
-        ExamDao examDao=new ExamDao();
-        examDao.AllExamsOut();
-        return examDao.GetOneExam(exam_id);
-    }
 
-    //向数据库中插入一条考核信息
     public static boolean insertExams(Exam exam)
     {
         ExamDao examDao=new ExamDao();
@@ -33,17 +25,23 @@ public class ExamService {//实现一些功能
         return examDao.AddOneExam(exam);
     }
 
-    //修改数据库中的指定信息
-    public static boolean updateExams(Exam exam)
+
+    public static Exam getExamsById(int exam_id)
     {
         ExamDao examDao=new ExamDao();
-        return examDao.UpdateOneExam(exam);    //更新信息
+        examDao.AllExamsOut();
+        return examDao.GetOneExam(exam_id);
     }
 
-    //根据ID删除指定信息
     public static void deleteExams(int exam_id)
     {
         ExamDao examDao=new ExamDao();
-        examDao.DeleteOneExam(exam_id);         //删除考核信息
+        examDao.DeleteOneExam(exam_id);
+
+    }
+    public static boolean updateExams(Exam exam)
+    {
+        ExamDao examDao=new ExamDao();
+        return examDao.UpdateOneExam(exam);
     }
 }

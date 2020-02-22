@@ -18,7 +18,7 @@ public class Homework {
     private int ExamId =-1;//提交至哪个考核
     private String FilePath;//文件路径
 
-    private static int FirstId = 100;
+    private static int FirstId = 0;
 
 
     //生成现在时间的最新作业

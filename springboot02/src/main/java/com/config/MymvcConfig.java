@@ -1,6 +1,7 @@
 package com.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,10 +15,10 @@ public class MymvcConfig implements WebMvcConfigurer  {
         registry .addViewController("/main.html").setViewName("teacher");
     }
 
-   /*@Override
+   @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry .addInterceptor(new LoginHandlerInterceptor() )
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/homework/upload","/index.html","/admini/login","/admini/logon","/css/**","/img/**","/js/**");
-    }*/
+    }
 }

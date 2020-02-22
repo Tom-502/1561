@@ -37,6 +37,10 @@
 <div class="container">
     <form class="contact" th:action="@{/admini/logon}">
         <h3>注册账号</h3>
+
+        <!--成功注册后-->
+        <p style="color: blue"  th:text="${msg2}" th:if="${not #strings.isEmpty(msg2) }"></p>
+
         <fieldset>
             <input placeholder="输入你的账号" type="text"  name="new_username" required="" autofocus="" id="id1">
         </fieldset>

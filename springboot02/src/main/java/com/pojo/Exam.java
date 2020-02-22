@@ -11,7 +11,7 @@ public class Exam {
     private int Id;
     private String ExamName;
     private String ExamContent;
-    private static int FirstExam = 100;
+    private static int FirstExam = 0;
     private Date Deadline;
     private int number;//提交人数
 
@@ -28,8 +28,7 @@ public class Exam {
         return number;
     }
 
-    //生成最新考核
-    public Exam(int id, String examName, String examContent, Date deadline) {
+    public Exam(int id, String examName, String examContent, Date deadline) {//生成当前时间考核
         Id = id;
         ExamName = examName;
         ExamContent = examContent;
